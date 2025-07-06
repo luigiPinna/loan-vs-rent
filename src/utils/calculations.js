@@ -10,6 +10,10 @@ export const formatCurrency = (amount) => {
 
 // Calculate mortgage monthly payment
 export const calculateMortgagePayment = (principal, annualRate, years) => {
+  if (principal <= 0 || years <= 0) {
+    return 0;
+  }
+  
   const monthlyRate = annualRate / 12 / 100;
   const numberOfPayments = years * 12;
   
@@ -17,38 +21,40 @@ export const calculateMortgagePayment = (principal, annualRate, years) => {
     return principal / numberOfPayments;
   }
   
-  return principal * (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) / 
+  const result = principal * (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) / 
          (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
+  
+  return isNaN(result) ? 0 : result;
 };
 
 // Main calculation function
 export const calculateComparison = (formData) => {
   // Extract and convert values
-  const prezzoAcquisto = formData.prezzoAcquisto;
-  const speseRistrutturazione = formData.speseRistrutturazione;
-  const imu = formData.imu;
-  const manutenzione = formData.manutenzione / 100;
-  const assicurazione = formData.assicurazione;
-  const orizzonteTempo = formData.orizzonteTempo;
-  const valorizzazione = formData.valorizzazione / 100;
-  const liquidita = formData.liquidita;
+  const prezzoAcquisto = parseFloat(formData.prezzoAcquisto) || 0;
+  const speseRistrutturazione = parseFloat(formData.speseRistrutturazione) || 0;
+  const imu = parseFloat(formData.imu) || 0;
+  const manutenzione = (parseFloat(formData.manutenzione) || 0) / 100;
+  const assicurazione = parseFloat(formData.assicurazione) || 0;
+  const orizzonteTempo = parseInt(formData.orizzonteTempo) || 0;
+  const valorizzazione = (parseFloat(formData.valorizzazione) || 0) / 100;
+  const liquidita = parseFloat(formData.liquidita) || 0.6;
   
-  const anticipo = formData.anticipo / 100;
-  const tassoInteresse = formData.tassoInteresse / 100;
-  const durataMutuo = formData.durataMutuo;
-  const speseNotarili = formData.speseNotarili;
+  const anticipo = (parseFloat(formData.anticipo) || 0) / 100;
+  const tassoInteresse = (parseFloat(formData.tassoInteresse) || 0) / 100;
+  const durataMutuo = parseInt(formData.durataMutuo) || 0;
+  const speseNotarili = parseFloat(formData.speseNotarili) || 0;
   
-  const canoneAffitto = formData.canoneAffitto;
-  const aumentoCanone = formData.aumentoCanone / 100;
-  const cauzione = formData.cauzione;
-  const speseCondominiali = formData.speseCondominiali;
-  const costiTrasloco = formData.costiTrasloco;
-  const frequenzaTrasloco = formData.frequenzaTrasloco;
+  const canoneAffitto = parseFloat(formData.canoneAffitto) || 0;
+  const aumentoCanone = (parseFloat(formData.aumentoCanone) || 0) / 100;
+  const cauzione = parseFloat(formData.cauzione) || 0;
+  const speseCondominiali = parseFloat(formData.speseCondominiali) || 0;
+  const costiTrasloco = parseFloat(formData.costiTrasloco) || 0;
+  const frequenzaTrasloco = parseInt(formData.frequenzaTrasloco) || 0;
   
-  const tassazione = formData.tassazione / 100;
-  const rischioMercato = formData.rischioMercato;
-  const includiInvestimenti = formData.includiInvestimenti;
-  const tassoSconto = includiInvestimenti ? formData.tassoSconto / 100 : 0;
+  const tassazione = (parseFloat(formData.tassazione) || 0) / 100;
+  const rischioMercato = parseFloat(formData.rischioMercato) || 0;
+  const includiInvestimenti = Boolean(formData.includiInvestimenti);
+  const tassoSconto = includiInvestimenti ? (parseFloat(formData.tassoSconto) || 0) / 100 : 0;
 
   // Calculate mortgage details
   const importoMutuo = prezzoAcquisto * (1 - anticipo);
