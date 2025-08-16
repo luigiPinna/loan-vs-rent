@@ -131,6 +131,7 @@ export const calculateComparison = (formData) => {
     const costoOpportunita = rendimentoAlternativo - importoAnticipo;
     // Questo è un beneficio dell'affitto (risparmio dell'anticipo), quindi lo sottraiamo
     costiAffittoTotali -= costoOpportunita;
+
   }
   
   // Apply market risk
