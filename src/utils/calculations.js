@@ -83,21 +83,25 @@ export const calculateComparison = (formData) => {
   }
   
   // Property final value calculation
-  const costiVendita = valoreImmobile * liquidita * 0.05;
+  const costiVendita = valoreImmobile * 0.05; // Corretto: solo 5% del valore
   const plusvalenza = Math.max(0, valoreImmobile - prezzoAcquisto - costiVendita);
   const tassePlusvalenza = plusvalenza * tassazione;
   const valoreNettoVendita = valoreImmobile - costiVendita - tassePlusvalenza;
   
-  // Calculate property benefit
+  // Calculate property benefit - CORRETTO
   let beneficioPatrimoniale = 0;
   if (includiInvestimenti) {
+    // Valore attuale del patrimonio finale
     const valoreAttualePatrimonio = valoreNettoVendita / Math.pow(1 + tassoSconto, orizzonteTempo);
-    beneficioPatrimoniale = valoreAttualePatrimonio - (prezzoAcquisto * Math.pow(1 + tassoSconto, orizzonteTempo));
-    costiMutuoTotali -= Math.max(0, beneficioPatrimoniale);
+    // Sottraiamo il valore attuale dell'investimento iniziale
+    beneficioPatrimoniale = valoreAttualePatrimonio - importoAnticipo;
   } else {
-    beneficioPatrimoniale = (valoreNettoVendita - prezzoAcquisto) * 0.7;
-    costiMutuoTotali -= Math.max(0, beneficioPatrimoniale);
+    // Senza considerare il valore temporale del denaro, usiamo il valore nominale
+    beneficioPatrimoniale = valoreNettoVendita - prezzoAcquisto;
   }
+  
+  // Sottraiamo il beneficio patrimoniale dai costi totali
+  costiMutuoTotali -= Math.max(0, beneficioPatrimoniale);
   
   // Calculate rent costs
   costiAffittoTotali += canoneAffitto * cauzione;
@@ -120,17 +124,22 @@ export const calculateComparison = (formData) => {
     canoneCorrente *= (1 + aumentoCanone);
   }
   
-  // Add opportunity cost if considering investments
+  // Add opportunity cost if considering investments - CORRETTO
   if (includiInvestimenti) {
+    // Il costo opportunità è il mancato guadagno dall'investire l'anticipo
     const rendimentoAlternativo = importoAnticipo * Math.pow(1 + tassoSconto, orizzonteTempo);
     const costoOpportunita = rendimentoAlternativo - importoAnticipo;
-    costiAffittoTotali += costoOpportunita;
+    // Questo è un beneficio dell'affitto (risparmio dell'anticipo), quindi lo sottraiamo
+    costiAffittoTotali -= costoOpportunita;
+
   }
   
   // Apply market risk
   costiMutuoTotali *= (1 + rischioMercato);
   
   // Calculate difference and percentage
+  // differenza > 0: acquisto costa di più
+  // differenza < 0: affitto costa di più (acquisto conveniente)
   const differenza = costiMutuoTotali - costiAffittoTotali;
   const percentualeDiff = Math.abs(differenza / Math.min(costiMutuoTotali, costiAffittoTotali) * 100);
   
