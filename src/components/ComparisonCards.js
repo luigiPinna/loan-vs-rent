@@ -8,8 +8,8 @@ const ComparisonCards = ({ results, formData }) => {
     const rendimentoAlternativo = results.importoAnticipo * Math.pow(1 + formData.tassoSconto / 100, formData.orizzonteTempo);
     investimentiInfo = (
       <div className="flex justify-between py-2 border-b border-gray-200">
-        <span>Mancato guadagno investimenti:</span>
-        <span>{formatCurrency(rendimentoAlternativo - results.importoAnticipo)}</span>
+        <span>Risparmio investimenti (anticipo):</span>
+        <span>-{formatCurrency(rendimentoAlternativo - results.importoAnticipo)}</span>
       </div>
     );
   }
@@ -61,7 +61,7 @@ const ComparisonCards = ({ results, formData }) => {
           </div>
           <div className="flex justify-between py-2 border-b border-gray-200">
             <span>Totale affitti {formData.orizzonteTempo} anni:</span>
-            <span>{formatCurrency(results.costiAffitto - (includiInv ? (results.importoAnticipo * Math.pow(1 + formData.tassoSconto / 100, formData.orizzonteTempo) - results.importoAnticipo) : 0))}</span>
+            <span>{formatCurrency(results.costiAffitto + (includiInv ? (results.importoAnticipo * Math.pow(1 + formData.tassoSconto / 100, formData.orizzonteTempo) - results.importoAnticipo) : 0))}</span>
           </div>
           {investimentiInfo}
           <div className="flex justify-between py-2 font-semibold text-gray-800 border-t-2 border-blue-500 pt-3">
