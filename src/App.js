@@ -105,13 +105,9 @@ function App() {
             🏠 Affitto vs Acquisto
           </h1>
           <p className="text-lg md:text-xl opacity-90 mb-6">
-            Analisi matematica completa per la scelta più conveniente
+            Il confronto di sempre 
           </p>
-          <div className="flex flex-wrap justify-center gap-3 text-sm">
-            <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">✓ Calcoli precisi</span>
-            <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">✓ Confronto dettagliato</span>
-            <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">✓ Analisi personalizzata</span>
-          </div>
+   
         </div>
       </div>
 
