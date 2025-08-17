@@ -8,6 +8,7 @@ const SelectField = ({
   options, 
   tooltip 
 }) => {
+  
   const handleChange = (e) => {
     const newValue = parseFloat(e.target.value);
     onChange(name, newValue);

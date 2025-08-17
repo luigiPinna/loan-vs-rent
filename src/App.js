@@ -13,7 +13,7 @@ function App() {
     assicurazione: 300,
     orizzonteTempo: 15,
     valorizzazione: 2,
-    liquidita: 0.6,
+    difficoltaVendita: 1,
     
     // Dati Mutuo
     anticipo: 20,
@@ -70,7 +70,7 @@ function App() {
       assicurazione: 300,
       orizzonteTempo: 15,
       valorizzazione: 2,
-      liquidita: 0.6,
+      difficoltaVendita: 1,
       
       // Dati Mutuo
       anticipo: 20,

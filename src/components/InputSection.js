@@ -128,15 +128,15 @@ const InputSection = ({ formData, onInputChange }) => {
                 
                 <SelectField
                   label="Facilità di rivendita"
-                  name="liquidita"
-                  value={formData.liquidita}
+                  name="difficoltaVendita"
+                  value={formData.difficoltaVendita}
                   onChange={onInputChange}
                   options={[
-                    { value: 1, label: "Molto difficile (periferia)" },
-                    { value: 0.9, label: "Difficile (zona poco richiesta)" },
+                    { value: 0.6, label: "Molto difficile (periferia)" },
+                    { value: 0.7, label: "Difficile (zona poco richiesta)" },
                     { value: 0.8, label: "Normale (mercato standard)" },
-                    { value: 0.7, label: "Buona (zona richiesta)" },
-                    { value: 0.6, label: "Ottima (centro città)" }
+                    { value: 0.9, label: "Buona (zona richiesta)" },
+                    { value: 1, label: "Ottima (centro città)" }
                   ]}
                   tooltip="Influenza i costi di vendita"
                 />
@@ -285,20 +285,6 @@ const InputSection = ({ formData, onInputChange }) => {
                   onChange={onInputChange}
                   type="number"
                   tooltip="Tasse sulla plusvalenza"
-                />
-                
-                <SelectField
-                  label="Rischio mercato"
-                  name="rischioMercato"
-                  value={formData.rischioMercato}
-                  onChange={onInputChange}
-                  options={[
-                    { value: 0, label: "Molto basso (mercato stabile)" },
-                    { value: 0.05, label: "Basso (lieve volatilità)" },
-                    { value: 0.1, label: "Medio (volatilità normale)" },
-                    { value: 0.15, label: "Alto (mercato volatile)" },
-                    { value: 0.2, label: "Molto alto (crisi possibile)" }
-                  ]}
                 />
                 
                 <CheckboxField

@@ -37,7 +37,8 @@ export const calculateComparison = (formData) => {
   const assicurazione = parseFloat(formData.assicurazione) || 0;
   const orizzonteTempo = parseInt(formData.orizzonteTempo) || 0;
   const valorizzazione = (parseFloat(formData.valorizzazione) || 0) / 100;
-  const liquidita = parseFloat(formData.liquidita) || 0.6;
+  const difficoltaVendita = (parseFloat(formData.difficoltaVendita) || 0);
+  console.log("difficoltaVendita", difficoltaVendita);
   
   const anticipo = (parseFloat(formData.anticipo) || 0) / 100;
   const tassoInteresse = (parseFloat(formData.tassoInteresse) || 0) / 100;
@@ -83,10 +84,13 @@ export const calculateComparison = (formData) => {
   }
   
   // Property final value calculation
-  const costiVendita = valoreImmobile * 0.05; // Corretto: solo 5% del valore
+  const valoreEffettivoVendita = valoreImmobile * difficoltaVendita;
+  const costiVendita = valoreImmobile - valoreEffettivoVendita;
+  console.log("costiVendita", costiVendita);
   const plusvalenza = Math.max(0, valoreImmobile - prezzoAcquisto - costiVendita);
   const tassePlusvalenza = plusvalenza * tassazione;
   const valoreNettoVendita = valoreImmobile - costiVendita - tassePlusvalenza;
+  console.log("valoreNettoVendita", valoreNettoVendita);
   
   // Calculate property benefit - CORRETTO
   let beneficioPatrimoniale = 0;
