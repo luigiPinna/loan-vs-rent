@@ -2,6 +2,7 @@
   "name": "loan_vs_rent",
   "version": "1.0.0",
   "private": true,
+  "homepage": "https://luigiPinna.github.io/loan-vs-rent",
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.11",
     "@types/react": "^18.2.0",
