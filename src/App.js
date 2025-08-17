@@ -105,7 +105,7 @@ function App() {
             🏠 Affitto vs Acquisto
           </h1>
           <p className="text-lg md:text-xl opacity-90 mb-6">
-            Il confronto di sempre 
+          Perché litigare con il partner quando puoi litigare con i numeri
           </p>
    
         </div>
